@@ -9,13 +9,13 @@ $user = read-host -Prompt 'Enter vCenter Username'
 $pass = read-host -assecurestring -Prompt 'Enter vCenter password' | convertfrom-securestring -Key $Key
 
 $vcenter = "vcenter="+$vcenter
-$vcenter | out-file /home/zerto/include/config.txt
-$vcenter | out-file /home/zerto/include/config.ini -Append
+$vcenter | out-file /home/zplanner/include/config.txt
+$vcenter | out-file /home/zplanner/include/config.ini -Append
 
 $user = "username="+$user
-$user | out-file /home/zerto/include/config.txt -Append
+$user | out-file /home/zplanner/include/config.txt -Append
 
 $pass = "password="+$pass
-$pass | out-file /home/zerto/include/config.txt -Append
+$pass | out-file /home/zplanner/include/config.txt -Append
 
 Write-Host "Information Written to Configuration files"

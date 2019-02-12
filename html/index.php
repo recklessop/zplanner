@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Zerto zPlanner</title>
+  <title>zPlanner</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bootstrap.min.css">
@@ -66,7 +66,7 @@
       <h2>Project Info</h2>
       <h5>GitHub Repository</h5>
       <img src="img/github.png" class="rounded" alt="GitHub">
-      <p>All zPlanner code is available on <a href="https://github.com/Zerto-TA-Public/zplanner">Github</a>. Updates are downloaded from Github nightly and on demand from the console.</p>
+      <p>All zPlanner code is available on <a href="https://github.com/recklessop/zplanner">Github</a>. Updates are downloaded from Github nightly and on demand from the console.</p>
       <h3>Open Source Components</h3>
       <p>Besides the custom code developed specifically for zPlanner, there are other open source components used. Below are links to those projects.</p>
       <ul class="nav nav-pills flex-column">
@@ -95,14 +95,14 @@
 	a static IP address, then run option 1 to update the appliance.</p>
       <p>From there run menu option 3, 4, 5, 6, and 7. Once those proceedures are completed you can select VMs to monitor from the "VM Monitoring" drop down menu in the ribbon above. 
 	Once you have selected all of the VMs you would like to monitor, return to the Homepage and select "Grafana" from the menu ribbon."
-      <p>The login credentials for Grafana are "admin" and "Zertodata1!". After 5 minutes you should start to see data populate in the graphs and tables.
+      <p>The login credentials for Grafana are "admin" and "admin". After 5 minutes you should start to see data populate in the graphs and tables.
       <br>
     </div>
   </div>
 </div>
 
 <div class="jumbotron text-center" style="margin-bottom:0">
-  <p>Please direct any questions to your local Zerto account manager and sales engineer.</p>
+  <p>See the documentation for all support related questions <a href="https://jpaul.me/zplanner-docs/>https://jpaul.me/zplanner-docs/</a>.</p>
 </div>
 
 </body>

@@ -1,10 +1,10 @@
 #!/usr/bin/pwsh
 
 $GrafanaServer = "localhost"
-$JSONFilePath = "/home/zerto/zplanner/dashboards/"
+$JSONFilePath = "/home/zplanner/zplanner/dashboards/"
 $GrafanaPort = "3000"
 $username = "admin"
-$password = "Zertodata1!"
+$password = "admin"
 
 $BaseURL = "http://" + $GrafanaServer + ":"+$GrafanaPort
 $AuthInfo = ("{0}:{1}" -f $username,$password)

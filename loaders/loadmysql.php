@@ -1,12 +1,12 @@
 <?php
 $data = [];
-$path = '/home/zerto/data/';
+$path = '/home/zplanner/data/';
 $csvfile = $argv[1];
 $csvfile = $path.$csvfile;
-$datefilepath = '/home/zerto/include/datetime.txt';
-$intfilepath = '/home/zerto/include/interval.txt';
+$datefilepath = '/home/zplanner/include/datetime.txt';
+$intfilepath = '/home/zplanner/include/interval.txt';
 
-//connect to the database$datefilepath = '/home/zerto/include/datetime.txt';
+//connect to the database$datefilepath = '/home/zplanner/include/datetime.txt';
 
 $datefile = fopen($datefilepath, "r") or die("Unable to open file!");
 $datestamp =  fgets($datefile);
@@ -16,8 +16,8 @@ $intfile = fopen($intfilepath, "r") or die("Unable to open file!");
 $interval =  fgets($intfile);
 fclose($intfile);
 
-$connect = mysqli_connect("localhost","root","Zertodata1!");
-mysqli_select_db($connect,"zerto"); //select the table
+$connect = mysqli_connect("localhost","root","zplanner");
+mysqli_select_db($connect,"zplanner"); //select the database
 //
 
 if (file_exists($csvfile) && filesize($csvfile) > 0) {

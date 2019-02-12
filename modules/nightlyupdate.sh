@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Updating zPlanner from github"
-(cd /home/zerto/zplanner/ && git reset --hard HEAD && git pull http://www.github.com/zerto-ta-public/zplanner/)
+(cd /home/zplanner/zplanner/ && git reset --hard HEAD && git pull http://www.github.com/recklessop/zplanner/)
 echo "Running Update Helper Script"
-(/bin/bash /home/zerto/zplanner/updates.sh)
+(/bin/bash /home/zplanner/zplanner/updates.sh)
 

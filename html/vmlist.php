@@ -3,8 +3,8 @@
         $vms_string = implode(', ', $_POST['vms']);
         $sql = 'UPDATE `vms` SET `monitor` = $_POST WHERE ('. $_POST['vmID'] .')';
 	//connect to the database
-	$connect = mysqli_connect("localhost","root","Zertodata1!");
-	mysqli_select_db($connect,"zerto"); //select the table
+	$connect = mysqli_connect("localhost","root","zplanner");
+	mysqli_select_db($connect,"zplanner"); //select the table
         mysqli_query($connect, $sql) OR die(mysqli_error($connect));
     }
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-$csvpath = '/home/zerto/data/';
+$csvpath = '/home/zplanner/data/';
 
 //delete old CSV files
 for ($i = 0; $i < 10; $i++) {
@@ -13,8 +13,8 @@ for ($i = 0; $i < 10; $i++) {
 
 //connect to the database
 
-$connect = mysqli_connect("localhost","root","Zertodata1!");
-mysqli_select_db($connect,"zerto"); //select the table
+$connect = mysqli_connect("localhost","root","zplanner");
+mysqli_select_db($connect,"zplanner"); //select the table
 
 // get the total number of VMs to be monitored and store in count
 $result = mysqli_query($connect, "SELECT * FROM `vms` WHERE `monitor` = 'Y'") or die(mysqli_error($connect));

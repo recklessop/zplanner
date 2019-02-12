@@ -1,13 +1,13 @@
 <?php
-$cfgfile = '/home/zerto/include/config.ini';
+$cfgfile = '/home/zplanner/include/config.ini';
 
 $config = parse_ini_file($cfgfile);
 
 //print_r($config);
 
 //connect to the database
-$connect = mysqli_connect("localhost","root","Zertodata1!");
-mysqli_select_db($connect,"zerto"); //select the table
+$connect = mysqli_connect("localhost","root","zplanner");
+mysqli_select_db($connect,"zplanner"); //select the table
 
 if (file_exists($cfgfile) && filesize($cfgfile) > 0) {
 

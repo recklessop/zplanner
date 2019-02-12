@@ -15,7 +15,7 @@ do
   # start menu output
   clear
   echo "=================================================="
-  echo "=      zPlanner Info and Config menu v4.0.2      ="
+  echo "=      zPlanner Info and Config menu v5.0.0 Beta ="
   echo "=================================================="
   echo "Current Network Config:"
   echo "   Interface Name: $interface"
@@ -34,9 +34,9 @@ do
           1) # Update zPlanner Scripts from Github
               clear
 	      echo "Updating zPlanner from github"
-	      (cd /home/zerto/zplanner/ && git reset --hard HEAD && git pull http://www.github.com/zerto-ta-public/zplanner/)
+	      (cd /home/zplanner/zplanner/ && git reset --hard HEAD && git pull http://www.github.com/recklessop/zplanner/)
 	      echo "Running Update Helper Script"
-	      (/bin/bash /home/zerto/zplanner/updates.sh)
+	      (/bin/bash /home/zplanner/zplanner/updates.sh)
 	      ;;
           2) # Config Network Settings
 	      clear
@@ -59,7 +59,7 @@ do
 				read confirm
 				case "$confirm" in
 				   "Y" | "y")
-					awk -f /home/zerto/zplanner/modules/changeInterface.awk /etc/network/interfaces device="$interface" mode=static address="$nicip" netmask="$nicmask" dns="$nicdns" gateway="$nicgw" | sudo tee /etc/network/interfaces
+					awk -f /home/zplanner/zplanner/modules/changeInterface.awk /etc/network/interfaces device="$interface" mode=static address="$nicip" netmask="$nicmask" dns="$nicdns" gateway="$nicgw" | sudo tee /etc/network/interfaces
 					sudo /etc/init.d/networking restart
 					;;
 				   *)
@@ -68,7 +68,7 @@ do
 				esac
 				;;
 	            "D" | "d") # update /etc/network/interface with dhcp config
-				awk -f /home/zerto/zplanner/modules/changeInterface.awk /etc/network/interfaces device=enp0s17 mode=dhcp | sudo tee /etc/network/interfaces
+				awk -f /home/zplanner/zplanner/modules/changeInterface.awk /etc/network/interfaces device=enp0s17 mode=dhcp | sudo tee /etc/network/interfaces
 				sudo /etc/init.d/networking restart
 				;;
 		    *) echo "invalid option try again";;
@@ -79,14 +79,14 @@ do
 	      echo "========================"
 	      echo "Hypervizor Config Wizard"
 	      echo -e "========================\n"
-              /usr/bin/pwsh /home/zerto/zplanner/workers/vm-setenv.ps1
+              /usr/bin/pwsh /home/zplanner/zplanner/workers/vm-setenv.ps1
               ;;
           4) # Test Hypervisor connectivity
 	      clear
 	      echo "==============================="
 	      echo "Testing Hypervizor Connectivity"
 	      echo -e "===============================\n"
-              /usr/bin/pwsh /home/zerto/zplanner/workers/vm-testenv.ps1
+              /usr/bin/pwsh /home/zplanner/zplanner/workers/vm-testenv.ps1
 	      echo "If an error occured please run Hypervisor Configuration Wizard"
               ;;
           5) # Config Customer Information
@@ -94,7 +94,7 @@ do
 	      echo "========================"
 	      echo "Generating List of VMs"
 	      echo -e "========================\n"
-              /usr/bin/pwsh /home/zerto/zplanner/workers/vm-getvms.ps1
+              /usr/bin/pwsh /home/zplanner/zplanner/workers/vm-getvms.ps1
               ;;
 	  6) # Schedule Cron Jobs
 	      clear
@@ -104,17 +104,17 @@ do
 	      echo "Generating Crontab configuration..."
 
 	      #Add Line to gather CPU and Memory information
-	      line="@daily /usr/bin/pwsh /home/zerto/zplanner/workers/vm-vminfo.ps1"
-	      (crontab -u zerto -l; echo "$line" ) | crontab -u zerto -
+	      line="@daily /usr/bin/pwsh /home/zplanner/zplanner/workers/vm-vminfo.ps1"
+	      (crontab -u zplanner -l; echo "$line" ) | crontab -u zplanner -
 
 	      #Add cron for gathering statistics every 5 minutes
-	      echo "5" > /home/zerto/include/interval.txt
-	      line="*/5 * * * * /usr/bin/pwsh /home/zerto/zplanner/workers/vm-getio.ps1"
-	      (crontab -u zerto -l; echo "$line" ) | crontab -u zerto -
+	      echo "5" > /home/zplanner/include/interval.txt
+	      line="*/5 * * * * /usr/bin/pwsh /home/zplanner/zplanner/workers/vm-getio.ps1"
+	      (crontab -u zplanner -l; echo "$line" ) | crontab -u zplanner -
 
 	      #Add Log cleanup to run once per day
-	      line="@daily /usr/bin/find /home/zerto/logs -mtime +7 -type f -delete"
-	      (crontab -u zerto -l; echo "$line" ) | crontab -u zerto -
+	      line="@daily /usr/bin/find /home/zplanner/logs -mtime +7 -type f -delete"
+	      (crontab -u zplanner -l; echo "$line" ) | crontab -u zplanner -
 
 	      crontab -l
               ;;
@@ -166,11 +166,11 @@ do
 	             "y" | "Y") # delete crontab
 			crontab -r
 	  	        #Add Log cleanup to run once per day
-	      	 	line="@daily /usr/bin/find /home/zerto/logs -mtime +7 -type f -delete"
-	      	 	(crontab -u zerto -l; echo "$line" ) | crontab -u zerto -
+	      	 	line="@daily /usr/bin/find /home/zplanner/logs -mtime +7 -type f -delete"
+	      	 	(crontab -u zplanner -l; echo "$line" ) | crontab -u zplanner -
 	  	        #Add auto update to run once per day
-	      	 	line="@daily /bin/bash /home/zerto/modules/nightlyupdate.sh"
-	      	 	(crontab -u zerto -l; echo "$line" ) | crontab -u zerto -
+	      	 	line="@daily /bin/bash /home/zplanner/modules/nightlyupdate.sh"
+	      	 	(crontab -u zplanner -l; echo "$line" ) | crontab -u zplanner -
 
 			;;
 	             *) # do nothing
@@ -193,16 +193,16 @@ do
 	      	echo "=============================="
 	      	echo -e "Select an action from the menu below\n"
   	      	echo "1.) Manually Run VMInfo Script"
-	      	echo "2.) Dump SQL DB to Zerto FTP"
+	      	echo "2.) Dump SQL DB to zplanner FTP"
   	      	echo "3.) Reserved"
    	      	echo "4.) Reserved"
   	      	echo "0.) Back to Main Menu"
   	      	read adv
   	      	case "$adv" in
           		1) # Manually run VMInfo Script
-			   /usr/bin/pwsh /home/zerto/zplanner/workers/vm-vminfo.ps1
+			   /usr/bin/pwsh /home/zplanner/zplanner/workers/vm-vminfo.ps1
               	   	   ;;
-          		2) # Dump SQL DB to Zerto FTP
+          		2) # Dump SQL DB to zplanner FTP
 			   echo "==================================="
 			   echo "Dumping database to file"
 			   #do some db dump stuff here

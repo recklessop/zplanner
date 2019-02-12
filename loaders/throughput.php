@@ -1,6 +1,6 @@
 <?php
-$connect = mysqli_connect("localhost","root","Zertodata1!");
-mysqli_select_db($connect,"zerto"); //select the table
+$connect = mysqli_connect("localhost","root","zplanner");
+mysqli_select_db($connect,"zplanner"); //select the table
 
         $getdate = "SELECT datestamp FROM `stats` GROUP BY datestamp DESC LIMIT 1";
         $date = mysqli_query($connect, $getdate) or die (mysqli_error($connect));

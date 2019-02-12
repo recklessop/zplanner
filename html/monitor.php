@@ -1,7 +1,7 @@
 <?php
 //connect to the database
-$connect = mysqli_connect("localhost","root","Zertodata1!");
-mysqli_select_db($connect,"zerto"); //select the table
+$connect = mysqli_connect("localhost","root","zplanner");
+mysqli_select_db($connect,"zplanner"); //select the table
 
 if(isset($_POST['select_name'])){ // select_name will be replaced with your input filed name
 	$getInput = $_POST['select_name']; // select_name will be replaced with your input filed name

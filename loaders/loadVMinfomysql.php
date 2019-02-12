@@ -1,12 +1,12 @@
 <?php
 $data = [];
-$path = '/home/zerto/data/';
+$path = '/home/zplanner/data/';
 $csvfile = $argv[1];
 $csvfile = $path.$csvfile;
 
 //connect to the database
-$connect = mysqli_connect("localhost","root","Zertodata1!");
-mysqli_select_db($connect,"zerto"); //select the table
+$connect = mysqli_connect("localhost","root","zplanner");
+mysqli_select_db($connect,"zplanner"); //select the table
 
 if (file_exists($csvfile) && filesize($csvfile) > 0) {
 
