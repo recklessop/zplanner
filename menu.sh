@@ -105,25 +105,25 @@ do
 		nigol="Enabled"
 	      fi
 	      echo "Current Autologin status: $login"
-
-	      echo "Would you like to change this? (Y/N):"
-      	      read autologin
-	        case "$autologin" in
-	             "y" | "Y") # switch autologin status 
-			echo "Reconfiguring Auto Login from $login to $nigol"
-		     	if [ "$login" == "Enabled" ]
-	      	     	then
-			    sudo mv $enacfgfile $discfgfile
-			    echo "Disabling Auto Login Completed"
-	      	        else
-			    sudo mv $discfgfile $enacfgfile
-			    echo "Enabling Auto Login Completed"
-	      	        fi
-			;;
-	             *) # do nothing
-			echo "Nothing to do..."
-			;;
-	        esac
+              echo "Enabling auto login is currently unavailable, it will be available again in a future release"
+	      #echo "Would you like to change this? (Y/N):"
+      	      #read autologin
+	        #case "$autologin" in
+	             #"y" | "Y") # switch autologin status 
+			#echo "Reconfiguring Auto Login from $login to $nigol"
+		     	#if [ "$login" == "Enabled" ]
+	      	     	#then
+			#    sudo mv $enacfgfile $discfgfile
+			#    echo "Disabling Auto Login Completed"
+	      	        #else
+			#    sudo mv $discfgfile $enacfgfile
+			#    echo "Enabling Auto Login Completed"
+	      	        #fi
+			#;;
+	             #*) # do nothing
+			#echo "Nothing to do..."
+			#;;
+	        #esac
               ;;
           8) # Kill all exisint CronJobs
 	      clear
