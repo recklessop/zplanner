@@ -4,7 +4,7 @@ $GrafanaServer = "localhost"
 $JSONFilePath = "/home/zplanner/zplanner/dashboards/"
 $GrafanaPort = "3000"
 $username = "admin"
-$password = "admin"
+$password = "zplanner"
 
 $BaseURL = "http://" + $GrafanaServer + ":"+$GrafanaPort
 $AuthInfo = ("{0}:{1}" -f $username,$password)
