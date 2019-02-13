@@ -7,19 +7,17 @@
 while true
 do
   # get network information (get each time in case it changes)
-  interface=$(cat /etc/network/interfaces | grep -i "iface" | grep -vi "lo" | awk '{print $2}')
-  iptype=$(cat /etc/network/interfaces | grep -vi "lo" | grep -i "inet" | awk '{print $NF}')
-  ipinfo=$(ifconfig $interface | awk '/inet addr/' | sed "s/^[ \t]*//")
+  interface=$(python3 /home/zplanner/zplanner/modules/netinfo.py interface)
+  ipinfo=$(python3 /home/zplanner/zplanner/modules/netinfo.py address)
   ipgw=$(ip route | grep -i "default" | awk '{ print $3 }')
 
   # start menu output
   clear
   echo "=================================================="
-  echo "=      zPlanner Info and Config menu v5.0.0 Beta ="
+  echo "=   zPlanner Info and Config menu  v5.0.0 Beta   ="
   echo "=================================================="
   echo "Current Network Config:"
   echo "   Interface Name: $interface"
-  echo "   Static \ DHCP: $iptype"
   echo "   Details: $ipinfo"
   echo "   Default Gateway: $ipgw"
   echo "=================================================="
@@ -43,36 +41,10 @@ do
 	      echo "====================="
 	      echo "Network Config Wizard"
 	      echo -e "=====================\n"
-	      echo "Configure appliance with DHCP or STATIC IP? (S=Static, D=DHCP)"
-	      read cronvminfo
-	        case "$cronvminfo" in
-          	    "S" | "s") # update /etc/network/interface with static config
-				echo "Enter IP address (xxx.xxx.xxx.xxx):"
-				read nicip
-				echo "Enter Subnet Mask (xxx.xxx.xxx.xxx):"
-				read nicmask
-				echo "Enter Default Gateway (xxx.xxx.xxx.xxx):"
-				read nicgw
-				echo "Enter DNS Servers (Seperate by space):"
-				read nicdns
-				echo "Does everything look correct? (Y/N)"
-				read confirm
-				case "$confirm" in
-				   "Y" | "y")
-					awk -f /home/zplanner/zplanner/modules/changeInterface.awk /etc/network/interfaces device="$interface" mode=static address="$nicip" netmask="$nicmask" dns="$nicdns" gateway="$nicgw" | sudo tee /etc/network/interfaces
-					sudo /etc/init.d/networking restart
-					;;
-				   *)
-					break
-					;;
-				esac
-				;;
-	            "D" | "d") # update /etc/network/interface with dhcp config
-				awk -f /home/zplanner/zplanner/modules/changeInterface.awk /etc/network/interfaces device=enp0s17 mode=dhcp | sudo tee /etc/network/interfaces
-				sudo /etc/init.d/networking restart
-				;;
-		    *) echo "invalid option try again";;
-      		esac
+	      (sudo python3 /home/zplanner/zplanner/modules/netplan-cfg.py)
+              echo "Running Netplan Generate & Netplan Apply"
+              (sudo netplan generate)
+              (sudo netplan apply)
               ;;
           3) # Config Customer Information
 	      clear
