@@ -30,13 +30,7 @@ if ( !(Get-Module -ListAvailable -Name VMware.PowerCLI -ErrorAction SilentlyCont
     return
 }
 
-try {
-    Import-Module VMware.PowerCLI
-}
-Catch {
-    $_ | Write-Host
-}
-
+Import-Module VMware.PowerCLI
 
 #Connect to vCenter server
 try {
