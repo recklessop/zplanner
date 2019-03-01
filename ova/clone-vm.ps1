@@ -30,12 +30,17 @@ if ( !(Get-Module -ListAvailable -Name VMware.PowerCLI -ErrorAction SilentlyCont
     return
 }
 
-Import-Module VMware.PowerCLI
+try {
+    Import-Module VMware.PowerCLI
+}
+Catch {
+    $_ | Write-Host
+}
 
 #Connect to vCenter server
 try {
     # connect to vi server using username and password from azure pipelines
-    Connect-VIserver -Server 192.168.254.20 -User $Env:viuser -Password $ENZV:vipass
+    Connect-VIserver -Server 192.168.254.20 -User $Env:viuser -Password $ENV:vipass
 }
 Catch {
     write-host "Unable to Connect to VMware vCenter Server"
