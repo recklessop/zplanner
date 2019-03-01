@@ -21,8 +21,8 @@ Write-Host '           ***           ,#%%%%%%%%%%%%%%#'
 Write-Host '           ****,,,,,,      ,#%%%%%%%%%%%%#'
 Write-Host '           **********        ,#%%%%%%%%%%/'
 
-Set-PowerCLIConfiguration -invalidcertificateaction "ignore" -confirm:$false |out-null
-Set-PowerCLIConfiguration -Scope Session -WebOperationTimeoutSeconds -1 -confirm:$false |out-null   
+#Set-PowerCLIConfiguration -invalidcertificateaction "ignore" -confirm:$false |out-null
+#Set-PowerCLIConfiguration -Scope Session -WebOperationTimeoutSeconds -1 -confirm:$false |out-null   
 
 if ( !(Get-Module -ListAvailable -Name VMware.PowerCLI -ErrorAction SilentlyContinue) ) {
     write-host ("VMware PowerCLI PowerShell module not found. Please verify installation and retry.") -BackgroundColor Red
