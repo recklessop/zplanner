@@ -40,7 +40,7 @@ Catch {
 #Connect to vCenter server
 try {
     # connect to vi server using username and password from azure pipelines
-    Connect-VIserver -Server 192.168.254.20 -User $Env:viuser -Password $ENV:vipass
+    Connect-VIserver -Server 192.168.254.20 -User $Env:viuser -Password $Env:vipass
 }
 Catch {
     write-host "Unable to Connect to VMware vCenter Server"
@@ -48,10 +48,10 @@ Catch {
     return
 }
 
-# Clone Ubuntu 18.04 LTS template named 'ubuntu18.04lts'
+# Clone Ubuntu 18.04 LTS template named 'zplanner1804base'
 $myDatastore = Get-Datastore -Name "VNX5300-SAS"
 $myCluster = Get-Cluster -Name "New Cluster"
-$myTemplate = Get-Template -Name "ubuntu1804lts"
+$myTemplate = Get-Template -Name "zplanner1804base"
 $mySpec = Get-OSCustomizationSpec -Name "zplanner"
 $vmname = $Env:buildnumber
 Write-Host "clone name: $vmname"
