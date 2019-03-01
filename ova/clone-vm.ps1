@@ -77,4 +77,3 @@ do {
 
 Write-Output "The VM has an IP of $vm_ip"
 Write-Output "##vso[task.setvariable variable=vm_ip]$vm_ip"
-add-content $logfile ("Disconnecting vCenter session. Script Complete")
