@@ -74,7 +74,7 @@ Process {
             $hdTab = @{}
             foreach($hd in (Get-Harddisk -VM $VMs)){
                 $controllerKey = $hd.Extensiondata.ControllerKey
-                $controller = $hd.Parent.Extensiondata.Config.Hardware.Device | where{$_.Key -eq $controllerKey}
+                $controller = $hd.Parent.Extensiondata.Config.Hardware.Device | Where-Object{$_.Key -eq $controllerKey}
                 $hdTab[$hd.Parent.Name + "/scsi" + $controller.BusNumber + ":" + $hd.Extensiondata.UnitNumber] = $hd.CapacityGB
             }
             Write-Verbose "$(Get-Date -Format G) Create HD Tab completed"
@@ -83,21 +83,21 @@ Process {
             #region: Creating Reports
             Write-Verbose "$(Get-Date -Format G) Create Report..."
             $reportPerf = @() 
-            $reportPerf = $stats | Group-Object -Property {$_.Entity.Name},Instance | %{
+            $reportPerf = $stats | Group-Object -Property {$_.Entity.Name},Instance | ForEach-Object{
                 New-Object PSObject -Property @{
                     VM = $_.Values[0]
                     Disk = $_.Values[1]
                     IOPSWriteAvg = [math]::round( ($_.Group | `
-                        where{$_.MetricId -eq "virtualdisk.numberwriteaveraged.average"} | `
+                        Where-Object{$_.MetricId -eq "virtualdisk.numberwriteaveraged.average"} | `
                         Measure-Object -Property Value -Average).Average,2)
                     IOPSReadAvg = [math]::round( ($_.Group | `
-                        where{$_.MetricId -eq "virtualdisk.numberreadaveraged.average"} | `
+                        Where-Object{$_.MetricId -eq "virtualdisk.numberreadaveraged.average"} | `
                         Measure-Object -Property Value -Average).Average,2)
                     KBWriteAvg = [math]::round( ($_.Group | `
-                        where{$_.MetricId -eq "virtualdisk.write.average"} | `
+                        Where-Object{$_.MetricId -eq "virtualdisk.write.average"} | `
                         Measure-Object -Property Value -Average).Average,2)
                     KBReadAvg = [math]::round( ($_.Group | `
-                        where{$_.MetricId -eq "virtualdisk.read.average"} | `
+                        Where-Object{$_.MetricId -eq "virtualdisk.read.average"} | `
                         Measure-Object -Property Value -Average).Average,2)
                     CapacityGB = $hdTab[$_.Values[0] + "/"+ $_.Values[1]]
                 }
